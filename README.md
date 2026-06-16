@@ -14,26 +14,46 @@ It learns from three sources every run: your **project files**, your **local ses
 and a short **interview** for the things code can't show (deployment, remote services, team
 conventions, pain points, goals).
 
-## Install
+## Getting started
 
-**Local / quick try** (works today):
+**Requirements:** [Claude Code](https://code.claude.com) (CLI, desktop, or IDE) with plugin
+support, and Node.js (bundled with Claude Code). Run it on your own machine — the consultant
+reads your local Claude Code history and writes its memory under `~/.claude`.
 
-```bash
-claude --plugin-dir /path/to/claude-consultant
+Inside a Claude Code session, run these three commands:
+
+```
+/plugin marketplace add osotorrio/claude-consultant
+/plugin install claude-consultant@claude-consultant
+/reload-plugins
 ```
 
-**Via a marketplace** (for sharing): once published to the community marketplace, install with
-`/plugin install claude-consultant@claude-community`. To self-host, add a marketplace that lists
-this repo, then `/plugin install claude-consultant`.
+- **1 — Add the marketplace:** registers this public repo as a plugin catalog.
+- **2 — Install the plugin:** you'll get a trust prompt (plugins run code on your machine) — accept it.
+- **3 — Activate it:** loads the plugin into your current session.
 
-## Usage
+**Then run it.** Open the project you want reviewed in Claude Code and type:
 
 ```
 /claude-consultant:audit
 ```
 
-Run it whenever you want a fresh read on your setup. Each run reconciles against the last:
-recommendations you've applied are auto-detected and marked done; only the rest are revisited.
+The first run asks permission to read your local history under `~/.claude` (the session-history
+source) and then interviews you briefly. Run it again any time — each run auto-detects which past
+recommendations you've applied and only revisits the rest.
+
+### Update or remove
+
+```
+/plugin marketplace update claude-consultant       # fetch the latest version
+/plugin uninstall claude-consultant@claude-consultant
+```
+
+### Try it locally without installing (development)
+
+```
+claude --plugin-dir /path/to/claude-consultant
+```
 
 ## Read-only guarantee
 
@@ -76,11 +96,6 @@ Stored as plain Markdown you can read, edit, or delete:
 ├── digests.md           # rolling history-signal digests
 └── reports/             # report-<timestamp>.md + latest.md
 ```
-
-## Requirements
-
-- Claude Code with plugin support.
-- **Node.js** for the guard hook (ships with Claude Code).
 
 ## How it's built
 

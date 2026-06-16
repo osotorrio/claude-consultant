@@ -1,0 +1,14 @@
+{
+  "name": "claude-consultant",
+  "description": "Catalog for the claude-consultant plugin — an on-demand, read-only Claude Code setup auditor.",
+  "owner": {
+    "name": "Óscar Sotorrío"
+  },
+  "plugins": [
+    {
+      "name": "claude-consultant",
+      "source": "./",
+      "description": "On-demand, read-only consultant that audits how a project uses Claude Code and writes a prioritized, copy-pasteable report of improvements; learns from files, history, and a short interview, and remembers across runs."
+    }
+  ]
+}

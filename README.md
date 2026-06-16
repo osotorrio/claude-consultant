@@ -90,4 +90,5 @@ subagent** (heavy analysis in its own context window), a **guard hook**, and a p
 
 ## License
 
-MIT © Óscar Sotorrío
+**[PolyForm Noncommercial License 1.0.0](LICENSE)** © 2026 Óscar Sotorrío.
+Free for non-commercial use; **commercial use requires a separate license** from the author.

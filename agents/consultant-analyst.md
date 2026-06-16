@@ -70,6 +70,12 @@ worktrees / parallel sessions; automated diff/PR review; GitHub integration (@me
 background or headless runs. Place the project on the ladder and name the **next 1–2 rungs**
 that would move them from prompt/response toward durable agentic delivery.
 
+## Using documentation (`WebFetch`)
+Claude Code changes fast, so your advice must reflect **current** capabilities, not stale assumptions:
+- Before recommending that the user adopt a feature — or flagging something as missing or outdated — you may verify it against the **official Claude Code docs** with `WebFetch` (start from `https://code.claude.com/docs/llms.txt`, then the specific page).
+- **Privacy rules (strict):** only fetch **official documentation URLs**, and only with **generic** queries. Never put the user's project content, file contents, paths, secrets, or any private data into a `WebFetch` prompt.
+- If you're offline or a fetch fails, fall back to built-in knowledge and note under "Access notes" that doc verification was skipped.
+
 ## Reading history (only if `historyEnabled` is true)
 - Consider `*.jsonl` in `transcriptsDir` modified **after `lastRunAt`** (incremental — older
   signal already lives in `digests.md`, and raw logs auto-delete at ~30 days).

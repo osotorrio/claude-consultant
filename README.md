@@ -12,7 +12,7 @@ Ever feel like your Claude Code setup has... gremlins? 🪲 A `CLAUDE.md` that d
 - 🧠 **It learns from your actual history.** Beyond your files, it reads your real session transcripts — the steps you keep repeating, the corrections you keep making, the prompts you keep clicking *allow* on — and turns them into fixes.
 - 🚀 **It levels up how you work.** Friendly nudges from prompt-and-pray toward a real agentic flow: plan mode, subagents, parallel worktrees, automated review.
 - ♻️ **It remembers.** Next run it notices what you already fixed and only bugs you about what's left.
-- 🔒 **It's safe & private.** Strictly read-only, and everything stays on your machine.
+- 🔒 **Safe & private.** Read-only toward your repo, working from your local files + history — the only thing it reaches out for is public Claude docs, to keep its advice current.
 
 ## Quickstart — ~60 seconds to your first report ⏱️
 
@@ -50,14 +50,15 @@ That's it! 🎉 It'll ask to peek at your local history, interview you for a min
 
 ## Safe by design 🛡️
 
-- **Never touches your repo.** Read-only — it can't create, edit, or delete your files. Your `git status` stays clean.
-- **Stays on your machine.** It reads local history to spot patterns; nothing is sent anywhere. Don't want that? Just say **"skip history."**
-- **Keeps its notes to itself.** Reports and memory live under `~/.claude/…`, never in your project.
+- **Won't modify your repo.** The analysis runs with no write tools, the report-writer only writes to its own folder, and a guard blocks repo writes during a run — so your `git status` stays clean.
+- **Works from local data.** It reads your files and local session history, right on your machine. Don't want history read? Just say **"skip history."**
+- **Only reaches out for docs.** The single thing it fetches is public Claude Code documentation, to keep its advice current — never your project data.
+- **Keeps its notes to itself.** Reports and memory live under `~/.claude/…`, never in your project. *(It's a Claude Code plugin, so a run uses your normal Claude session.)*
 
 ## FAQ
 
 - **Will it change my code?** Nope. It only writes a report — you decide what to apply.
-- **What does it read?** Your project files, your local Claude Code session history, and your answers to a short interview.
+- **What does it read?** Your project files, your local session history, and your interview answers — plus public Claude Code docs, to stay current.
 - **Update or remove it?** `/plugin marketplace update claude-consultant` · `/plugin uninstall claude-consultant@claude-consultant`
 - **Does it work on any project?** Any project you open in local Claude Code (CLI, desktop, or IDE) — wherever your code lives.
 

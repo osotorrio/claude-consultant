@@ -11,7 +11,7 @@
  *
  * Lifecycle: the audit skill writes ~/.claude/consultant-audit.lock
  *     { "active": true, "cwd": "<repo root>", "ts": <epoch ms> }
- * at the start of a run and sets "active": false at the end.
+ * at the start of a run, refreshes "ts" at each phase, and sets "active": false at the end.
  */
 'use strict';
 
@@ -19,7 +19,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
-const LOCK_TTL_MS = 30 * 60 * 1000; // self-heal if a run never cleared the lock
+const LOCK_TTL_MS = 30 * 60 * 1000; // "recently active" window; the audit refreshes ts each phase, so the lock only goes stale after a run stops or crashes
 
 function allow() {
   process.exit(0);

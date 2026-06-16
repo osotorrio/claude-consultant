@@ -39,6 +39,8 @@ history, and a short interview — and you remember across runs.
 `Write` `lockFile` = `{"active": true, "cwd": "<repoRoot>", "ts": <current epoch ms>}`.
 This arms the session-scoped read-only guard for this repo. You clear it in step 8.
 
+**Keep it fresh:** at the **start of every phase below** (and again right before you write the report), re-write `lockFile` with `active: true` and a new `ts`. The guard treats the lock as stale after a short window, so refreshing keeps the read-only protection active through a long run — including a slow interview — while still letting it self-heal quickly if the run is abandoned or crashes.
+
 ### 1 — Recall
 Read `storeDir/MEMORY.md`, `recommendations.md`, `interview.md`, `digests.md` if present, and
 note `lastRunAt`. If nothing exists, this is the first run.

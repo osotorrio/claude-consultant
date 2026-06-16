@@ -1,0 +1,11 @@
+{
+  "name": "claude-consultant",
+  "description": "On-demand, read-only consultant that audits how a project uses Claude Code and writes a prioritized, copy-pasteable report of improvements. Learns from project files, session history, and a short interview; remembers across runs.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Óscar Sotorrío"
+  },
+  "homepage": "https://github.com/osotorrio/claude-consultant",
+  "repository": "https://github.com/osotorrio/claude-consultant",
+  "license": "MIT"
+}

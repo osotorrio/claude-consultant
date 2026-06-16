@@ -1,7 +1,7 @@
 ---
 description: Audit how this project uses Claude Code and produce a prioritized, copy-pasteable report of improvements. Strictly read-only toward the project; remembers across runs. Invoke with /claude-consultant:audit.
 disable-model-invocation: true
-allowed-tools: Read, Write, Glob, Grep, Task
+allowed-tools: Read, Write, Glob, Grep, Task, AskUserQuestion
 ---
 
 # Claude Consultant — audit run
@@ -58,13 +58,26 @@ subagent's job, and it keeps your context small.
 Apply the subagent's auto-detected statuses to your recommendation records. Collect any items it
 marked `needs-interview`.
 
-### 5 — Interview (adaptive, incremental — mirror this style)
-Ask in **short, themed rounds: sharp questions, one theme at a time, no long questionnaires.**
-Wait for answers between rounds.
-- **First run:** cover what files/history can't show — deployment, remote services, cloud data,
-  team conventions, current pain points, goals. A few short rounds, not a wall of questions.
+### 5 — Interview (adaptive, incremental — use the `AskUserQuestion` tool)
+Conduct the interview with the **`AskUserQuestion` tool** — the same structured prompt Claude Code
+uses in plan mode: numbered, arrow-selectable options, one clearly marked **"(Recommended)"**, and
+the built-in **"Other"** choice so the user can add or discuss something new. **Do not** ask the
+interview as plain prose.
+
+- **Always offer options.** For every question, synthesize 2–4 concrete, likely answers from what
+  the analyst found in the files and history; put your best guess **first, labeled "(Recommended)"**.
+  The automatic "Other" option captures anything you didn't anticipate.
+- **Short themed rounds.** One theme per `AskUserQuestion` call, up to ~3–4 questions per call. Keep
+  the total small — the tool allows only a handful of questions and each round times out after ~60s
+  of no answer. Go deep on one theme before moving to the next.
+- **Main thread only.** `AskUserQuestion` cannot be used from a subagent — *you*, the orchestrator,
+  ask it. Never delegate the interview to the `consultant-analyst`.
+- **First run:** cover what files/history can't show — deployment, remote services, cloud data, team
+  conventions, current pain points, goals.
 - **Later runs:** only confirm what changed, ask net-new gaps, re-confirm stale learnings, and
-  resolve the `needs-interview` items. Never re-ask what `interview.md` already answers.
+  resolve the analyst's `needs-interview` items. Never re-ask what `interview.md` already answers.
+- If the user skips or dismisses a question, continue gracefully and note the gap under
+  "Assumptions & gaps" in the report.
 
 ### 6 — Report
 Assemble the report (template below): **prioritized and opinionated** — top actions first, each
